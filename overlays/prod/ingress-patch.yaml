@@ -1,0 +1,27 @@
+# overlays/prod/ingress-patch.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-app
+  annotations:
+    # Base'deki annotation'ları da buraya eklemelisiniz, aksi takdirde silinirler.
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod # Prod ortamına özel issuer
+spec:
+  tls:
+    - hosts:
+        - app.prod.goxdev.lol
+      secretName: tls-prod-my-app
+  rules:
+    - host: app.prod.goxdev.lol
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-app
+                port:
+                  number: 80

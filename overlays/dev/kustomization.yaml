@@ -1,0 +1,38 @@
+# overlays/dev/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: dev
+
+resources:
+  - ../../base
+
+labels:
+  - pairs:
+      environment: dev
+
+images:
+  - name: harbor.prod.goxdev.lol/app-mehmetkanus/todoapp
+    newTag: latest
+
+replicas:
+  - name: my-app
+    count: 1
+
+patches:
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: my-app
+  - path: external-secret-patch.yaml
+    target:
+      kind: ExternalSecret
+      name: appsettings-externalsecret
+  - path: hpa-patch.yaml
+    target:
+      kind: HorizontalPodAutoscaler
+      name: my-app
+  - path: ingress-patch.yaml
+    target:
+      kind: Ingress
+      name: my-app

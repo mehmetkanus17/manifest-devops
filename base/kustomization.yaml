@@ -1,0 +1,21 @@
+# base/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - external-secret.yaml
+  - deployment.yaml
+  - service.yaml
+  - hpa.yaml
+  - ingress.yaml
+
+# Güncel syntax ile ortak etiketler
+labels:
+  - pairs:
+      app.kubernetes.io/name: my-app
+      app.kubernetes.io/component: web
+      app.kubernetes.io/part-of: my-app-suite
+
+# Ortak annotasyonlar
+commonAnnotations:
+  app.kubernetes.io/managed-by: kustomize
