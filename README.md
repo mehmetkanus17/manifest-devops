@@ -1,4 +1,4 @@
-# manifest-mehmetkanus: Kubernetes Manifestleri
+# Kubernetes Manifestleri
 
 Bu repo, DevOps proje kapsamında, `SimpleTodoApp` uygulamasının Kubernetes manifestlerini içermektedir. Repo, Kustomize kullanarak farklı ortamlar (`dev` ve `prod`) için uygulama dağıtımlarını yönetir. Bu yapı, Infrastructure as Code (IaC) ve GitOps prensiplerine uygun olarak, uygulama dağıtımlarının versiyonlanabilir, tekrarlanabilir ve otomatik olmasını sağlar.
 
